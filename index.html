@@ -24,13 +24,31 @@
     margin-bottom: 10px;
     letter-spacing: 1px;
 }
-        .btn { width: 30px; height: 30px; border-radius: 50%; background: #a0665d; color: #fff; display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 7px; font-weight: bold; margin-right: 5px; }
-        .input { width: 100%; padding: 8px; border-radius: 5px; border: 1px solid #a0665d; margin-bottom: 10px; box-sizing: border-box; }
+.btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #a0665d;
+    color: #fff !important;
+    display: inline-flex;    /* Cambiato per centrare meglio */
+    align-items: center;
+    justify-content: center;
+    text-decoration: none !important;
+    font-size: 16px;         /* Icone leggermente più grandi del testo di prima */
+    transition: 0.2s;
+    margin-right: 5px;
+}
+
+.btn:hover {
+    background: #7a4a42;
+    transform: scale(1.1);   /* Un piccolo effetto d'ingrandimento al passaggio */
+}        .input { width: 100%; padding: 8px; border-radius: 5px; border: 1px solid #a0665d; margin-bottom: 10px; box-sizing: border-box; }
         .menu { background: #fff; border: 1px solid #e3c8c4; border-radius: 5px; overflow: hidden; }
         .voce { padding: 10px; cursor: pointer; color: #a0665d; font-size: 12px; font-weight: bold; border-bottom: 1px solid #eee; }
         .voce.attiva { background: #a0665d; color: #fff; }
         @media (max-width: 700px) { .grid { grid-template-columns: 1fr; } .flex { flex-direction: column; } .side { width: 100%; } }
     </style>
+<link rel="stylesheet" href="https://cloudflare.com">
 </head>
 <body>
     <div class="flex">
@@ -68,13 +86,14 @@
                     
                     // Costruzione dinamica dei pulsanti social
                     // Appaiono solo se il campo nel database non è vuoto
-                    let s = '';
-                    if (p.w)   s += `<a href="${p.w}" target="_blank" class="btn">WEB</a>`;
-                    if (p.m)   s += `<a href="mailto:${p.m}" class="btn">MAIL</a>`;
-                    if (p.wa)  s += `<a href="https://wa.me{p.wa}" target="_blank" class="btn">WA</a>`;
-                    if (p.ig)  s += `<a href="${p.ig}" target="_blank" class="btn">IG</a>`;
-                    if (p.fb)  s += `<a href="${p.fb}" target="_blank" class="btn">FB</a>`;
-                    if (p.t)   s += `<a href="tel:${p.t}" class="btn">TEL</a>`;
+                    // --- GENERAZIONE ICONE SOCIAL ---
+let s = '';
+if (p.w)   s += `<a href="${p.w}" target="_blank" class="btn" title="Sito Web"><i class="fa-solid fa-globe"></i></a>`;
+if (p.m)   s += `<a href="mailto:${p.m}" class="btn" title="Email"><i class="fa-solid fa-envelope"></i></a>`;
+if (p.wa)  s += `<a href="https://wa.me{p.wa}" target="_blank" class="btn" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>`;
+if (p.ig)  s += `<a href="${p.ig}" target="_blank" class="btn" title="Instagram"><i class="fa-brands fa-instagram"></i></a>`;
+if (p.fb)  s += `<a href="${p.fb}" target="_blank" class="btn" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>`;
+if (p.t)   s += `<a href="tel:${p.t}" class="btn" title="Telefono"><i class="fa-solid fa-phone"></i></a>`;
 
                     // Creazione della scheda (Card)
                     h += `
