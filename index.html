@@ -10,17 +10,19 @@
         .card { background: #fff; border: 1px solid #e3c8c4; border-radius: 10px; padding: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); display: flex; flex-direction: column; }
         .nome { color: #a0665d; font-size: 16px; font-weight: bold; text-transform: uppercase; margin: 10px 0; }
         .cat-tag {
-    text-align: right;
     color: #a0665d;
     font-size: 9px;
     font-weight: 900;
     text-transform: uppercase;
-    /* --- MODIFICHE QUI --- */
+    
+    /* --- MODIFICHE PER LA LINEA CORTA --- */
     border-bottom: 2px solid #a0665d; 
-    display: inline-block; /* Fondamentale: fa sì che la riga sia lunga quanto il testo */
-    float: right;          /* Lo tiene a destra */
+    display: block;        /* Cambiato in block */
+    width: fit-content;    /* Forza la larghezza sulla parola */
+    margin-left: auto;     /* Spinge il box tutto a destra */
     padding-bottom: 2px;
     margin-bottom: 10px;
+    letter-spacing: 1px;
 }
         .btn { width: 30px; height: 30px; border-radius: 50%; background: #a0665d; color: #fff; display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 7px; font-weight: bold; margin-right: 5px; }
         .input { width: 100%; padding: 8px; border-radius: 5px; border: 1px solid #a0665d; margin-bottom: 10px; box-sizing: border-box; }
