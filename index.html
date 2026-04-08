@@ -63,7 +63,7 @@
             let h = '';
             dati.forEach(p => {
                 if ((catSel === 'TUTTI' || p.c === catSel) && p.n.toLowerCase().includes(q)) {
-                    let s = (p.w ? `<a href="${p.web}" target="_blank" class="btn">WEB</a>` : '') +
+                    let s = (p.w ? `<a href="${p.w}" target="_blank" class="btn">WEB</a>` : '') +
                             (p.m ? `<a href="mailto:${p.m}" class="btn">MAIL</a>` : '') +
                             (p.wa ? `<a href="https://wa.me{p.wa}" target="_blank" class="btn">WA</a>` : '') +
                             (p.fb ? `<a href="${p.fb}" target="_blank" class="btn">FB</a>` : '');
