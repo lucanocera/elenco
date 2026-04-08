@@ -2,120 +2,109 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         body { font-family: 'Segoe UI', sans-serif; margin: 0; padding: 10px; background: transparent; }
-        .flex { display: flex; gap: 20px; align-items: flex-start; }
-        .side { width: 180px; flex-shrink: 0; }
-        .grid { flex-grow: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        .card { background: #fff; border: 1px solid #e3c8c4; border-radius: 10px; padding: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); display: flex; flex-direction: column; }
-        .nome { color: #a0665d; font-size: 16px; font-weight: bold; text-transform: uppercase; margin: 10px 0; }
+        .flex { display: flex; gap: 25px; align-items: flex-start; max-width: 1100px; margin: 0 auto; }
+        .side { width: 200px; flex-shrink: 0; }
+        .grid { flex-grow: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        
+        .card { background: #fff; border: 1px solid #e3c8c4; border-radius: 12px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); display: flex; flex-direction: column; }
+        .nome { color: #a0665d; font-size: 18px; font-weight: bold; text-transform: uppercase; margin: 10px 0; }
+        
+        /* RIGHINA CORTA FISSA */
         .cat-tag {
-    color: #a0665d;
-    font-size: 9px;
-    font-weight: 900;
-    text-transform: uppercase;
-    
-    /* --- MODIFICHE PER LA LINEA CORTA --- */
-    border-bottom: 2px solid #a0665d; 
-    display: block;        /* Cambiato in block */
-    width: fit-content;    /* Forza la larghezza sulla parola */
-    margin-left: auto;     /* Spinge il box tutto a destra */
-    padding-bottom: 2px;
-    margin-bottom: 10px;
-    letter-spacing: 1px;
-}
-.btn {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    background: #a0665d;
-    color: #fff !important;
-    display: inline-flex;    /* Cambiato per centrare meglio */
-    align-items: center;
-    justify-content: center;
-    text-decoration: none !important;
-    font-size: 16px;         /* Icone leggermente più grandi del testo di prima */
-    transition: 0.2s;
-    margin-right: 5px;
-}
+            color: #a0665d; font-size: 10px; font-weight: 900; text-transform: uppercase;
+            border-bottom: 2px solid #a0665d; display: table; margin-left: auto;
+            padding-bottom: 2px; margin-bottom: 10px; letter-spacing: 1px;
+        }
 
-.btn:hover {
-    background: #7a4a42;
-    transform: scale(1.1);   /* Un piccolo effetto d'ingrandimento al passaggio */
-}        .input { width: 100%; padding: 8px; border-radius: 5px; border: 1px solid #a0665d; margin-bottom: 10px; box-sizing: border-box; }
-        .menu { background: #fff; border: 1px solid #e3c8c4; border-radius: 5px; overflow: hidden; }
-        .voce { padding: 10px; cursor: pointer; color: #a0665d; font-size: 12px; font-weight: bold; border-bottom: 1px solid #eee; }
+        .btn {
+            width: 34px; height: 34px; border-radius: 50%; background: #a0665d;
+            color: #fff !important; display: inline-flex; align-items: center; justify-content: center;
+            text-decoration: none !important; transition: 0.2s; margin-right: 6px;
+        }
+        .btn:hover { background: #7a4a42; transform: scale(1.1); }
+        .btn svg { width: 16px; height: 16px; fill: currentColor; } /* Colora l'icona di bianco */
+
+        .input { width: 100%; padding: 10px; border-radius: 8px; border: 1.5px solid #a0665d; outline: none; margin-bottom: 12px; box-sizing: border-box; }
+        .menu { background: #fff; border: 1px solid #e3c8c4; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .voce { padding: 12px 15px; cursor: pointer; color: #a0665d; font-size: 13px; font-weight: bold; border-bottom: 1px solid #f2e2e0; }
         .voce.attiva { background: #a0665d; color: #fff; }
-        @media (max-width: 700px) { .grid { grid-template-columns: 1fr; } .flex { flex-direction: column; } .side { width: 100%; } }
+        
+        @media (max-width: 850px) { .grid { grid-template-columns: 1fr; } .flex { flex-direction: column; } .side { width: 100%; } }
     </style>
-<link rel="stylesheet" href="https://cloudflare.com">
 </head>
 <body>
-    <div class="flex">
-        <div class="side">
-            <input type="text" id="cerca" onkeyup="render()" placeholder="Cerca..." class="input">
-            <div class="menu" id="menu">
-                <div class="voce attiva" onclick="filter('TUTTI', this)">TUTTI</div>
-                <div class="voce" onclick="filter('ASSOCIAZIONI', this)">ASSOCIAZIONI</div>
-                <div class="voce" onclick="filter('PSICHIATRI', this)">PSICHIATRI</div>
-                <div class="voce" onclick="filter('PSICOLOGI', this)">PSICOLOGI</div>
-                <div class="voce" onclick="filter('ALTRI PROFESSIONISTI', this)">ALTRI</div>
-            </div>
+
+<div class="flex">
+    <div class="side">
+        <input type="text" id="cerca" onkeyup="render()" placeholder="Cerca..." class="input">
+        <div class="menu">
+            <div class="voce attiva" onclick="filter('TUTTI', this)">TUTTI</div>
+            <div class="voce" onclick="filter('ASSOCIAZIONI', this)">ASSOCIAZIONI</div>
+            <div class="voce" onclick="filter('PSICHIATRI', this)">PSICHIATRI</div>
+            <div class="voce" onclick="filter('PSICOLOGI', this)">PSICOLOGI</div>
+            <div class="voce" onclick="filter('ALTRI PROFESSIONISTI', this)">ALTRI</div>
         </div>
-        <div class="grid" id="grid"></div>
     </div>
+    <div class="grid" id="grid"></div>
+</div>
 
-    <script>
-        // --- QUI AGGIUNGI I TUOI DATI ---
-        const dati = [
-            { n: "Dott.ssa Tiziana Casazza", c: "PSICOLOGI", b: "Psicologa, psicoterapeuta, insegnante di pratica Bioenergetica", w: "https://www.tizianacasazzapsicologa.it/index.html", m: "#", wa: "#0", ig: "#", fb: "#", t: "#" },
-            { n: "Mario Rossi", c: "PSICHIATRI", b: "Psichiatra specializzato in disturbi dell'umore.", w: "", m: "m@m.it", wa: "391", ig: "", fb: "", t: "" },
-            { n: "Associazione ABC", c: "ASSOCIAZIONI", b: "Supporto e divulgazione nazionale.", w: "#", m: "", wa: "", ig: "", fb: "#", t: "" }
-        ];
+<script>
+    // --- DISEGNI DELLE ICONE (SVG) ---
+    const icone = {
+        web: `<svg viewBox="0 0 512 512"><path d="M352 256c0 22.2-1.2 43.6-3.3 64H163.3c-2.2-20.4-3.3-41.8-3.3-64s1.2-43.6 3.3-64H348.7c2.2 20.4 3.3 41.8 3.3 64zm28.8-64H503.9c5.3 20.5 8.1 41.9 8.1 64s-2.8 43.5-8.1 64H380.8c2.1-20.6 3.2-42 3.2-64s-1.1-43.4-3.2-64zm112.6-32H376.7c-10-63.9-29.8-117.4-55.3-151.6c78.3 20.7 142 81.1 170.2 151.6zM214.4 16h83.2c31.2 0 57.7 51.1 69.4 112H145c11.7-60.9 38.2-112 69.4-112zM135.3 16C109.8 50.2 90 103.7 80 167.6H17.4C45.6 97.1 109.3 36.7 187.7 16zM6.1 192H128.4c-2.1 20.6-3.2 42-3.2 64s1.1 43.4 3.2 64H8.1C2.8 299.5 0 278.1 0 256s2.8-43.5 8.1-64zM80 344.4c10 63.9 29.8 117.4 55.3 151.6C57.1 475.3 13.4 414.9 15.2 344.4H80zm134.4 151.6c-31.2 0-57.7-51.1-69.4-112H366.6c-11.7 60.9-38.2 112-69.4 112h-83.2zM324.3 496c25.5-34.2 45.3-87.7 55.3-151.6h62.7c-28.2 70.5-91.9 130.9-170.3 151.6z""")/>></svg>`,
+        mail: `<svg viewBox="0 0 512 512"><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48H48zM0 176V384c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V176L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z""")/>></svg>`,
+        wa: `<svg viewBox="0 0 448 512"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.4 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-5.5-2.8-23.2-8.5-44.2-27.1-16.4-14.6-27.4-32.7-30.6-38.1-3.2-5.5-.3-8.5 2.4-11.2 2.5-2.4 5.5-6.5 8.3-9.7 2.8-3.3 3.7-5.5 5.5-9.2 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.4-29.8-17-40.7-4.5-10.7-9-9.2-12.4-9.4h-10.6c-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 13.2 5.8 23.5 9.2 31.5 11.8 13.3 4.2 25.4 3.6 35 2.2 10.7-1.5 32.8-13.4 37.4-26.3 4.6-13 4.6-24.1 3.2-26.3-1.3-2.3-5-3.6-10.5-6.4z""")/>></svg>`,
+        fb: `<svg viewBox="0 0 320 512"><path d="M279.1 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.4 0 225.4 0c-73.22 0-121.1 44.38-121.1 124.7v70.62H22.89V288h81.39v224h100.2V288z""")/>></svg>`,
+        ig: `<svg viewBox="0 0 448 512"><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z""")/>></svg>`,
+        tel: `<svg viewBox="0 0 512 512"><path d="M164.9 24.6c-7.7-18.6-28-28.5-47.4-23.2l-88 24C12.1 30.2 0 46 0 64C0 311.4 200.6 512 448 512c18 0 33.8-12.1 38.6-29.5l24-88c5.3-19.4-4.6-39.7-23.2-47.4l-96-40c-16.3-6.8-35.2-2.1-46.3 11.6L304.7 368C234.3 334.7 177.3 277.7 144 207.3L193.3 167c13.7-11.2 18.4-30 11.6-46.3l-40-96z""")/>></svg>`
+    };
 
-        let catSel = 'TUTTI';
+    const dati = [
+        { n: "Dott.ssa Tiziana Casazza", c: "PSICOLOGI", b: "Psicologa, psicoterapeuta, insegnante di pratica Bioenergetica", w: "https://tizianacasazzapsicologa.it", m: "tiziana@mail.it", wa: "393331234567", ig: "https://instagram.com", fb: "#", t: "393331234567" },
+        { n: "Mario Rossi", c: "PSICHIATRI", b: "Psichiatra specializzato in disturbi dell'umore.", w: "", m: "mario@mail.it", wa: "393331234567", ig: "", fb: "", t: "" },
+        { n: "Associazione ABC", c: "ASSOCIAZIONI", b: "Supporto e divulgazione nazionale.", w: "https://google.it", m: "", wa: "", ig: "", fb: "https://facebook.com", t: "" }
+    ];
 
-        function render() {
-            const q = document.getElementById('cerca').value.toLowerCase();
-            const g = document.getElementById('grid');
-            let h = '';
-            
-            dati.forEach(p => {
-                // Filtro per categoria e ricerca nome
-                if ((catSel === 'TUTTI' || p.c === catSel) && p.n.toLowerCase().includes(q)) {
-                    
-                    // Costruzione dinamica dei pulsanti social
-                    // Appaiono solo se il campo nel database non è vuoto
-                    // --- GENERAZIONE ICONE SOCIAL ---
-let s = '';
-if (p.w)   s += `<a href="${p.w}" target="_blank" class="btn" title="Sito Web"><i class="fa-solid fa-globe"></i></a>`;
-if (p.m)   s += `<a href="mailto:${p.m}" class="btn" title="Email"><i class="fa-solid fa-envelope"></i></a>`;
-if (p.wa)  s += `<a href="https://wa.me{p.wa}" target="_blank" class="btn" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>`;
-if (p.ig)  s += `<a href="${p.ig}" target="_blank" class="btn" title="Instagram"><i class="fa-brands fa-instagram"></i></a>`;
-if (p.fb)  s += `<a href="${p.fb}" target="_blank" class="btn" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>`;
-if (p.t)   s += `<a href="tel:${p.t}" class="btn" title="Telefono"><i class="fa-solid fa-phone"></i></a>`;
+    let catSel = 'TUTTI';
 
-                    // Creazione della scheda (Card)
-                    h += `
-                        <div class="card">
-                            <div class="cat-tag">${p.c}</div>
-                            <div class="nome">${p.n}</div>
-                            <p style="font-size:12px;color:#555;flex-grow:1;margin:5px 0">${p.b}</p>
-                            <div style="display:flex; gap:5px; flex-wrap:wrap;">${s}</div>
-                        </div>`;
-                }
-            });
-            
-            g.innerHTML = h || '<p style="grid-column: span 2; text-align: center;">Nessun risultato.</p>';
-        }
-        function filter(c, el) {
-            catSel = c;
-            document.querySelectorAll('.voce').forEach(v => v.classList.remove('attiva'));
-            el.classList.add('attiva');
-            render();
-        }
+    function render() {
+        const q = document.getElementById('cerca').value.toLowerCase();
+        const g = document.getElementById('grid');
+        let h = '';
+        
+        dati.forEach(p => {
+            if ((catSel === 'TUTTI' || p.c === catSel) && p.n.toLowerCase().includes(q)) {
+                let s = '';
+                // Controllo se il campo esiste e non è solo un cancelletto
+                if (p.w && p.w !== "#")  s += `<a href="${p.w}" target="_blank" class="btn" title="Web">${icone.web}</a>`;
+                if (p.m && p.m !== "#")  s += `<a href="mailto:${p.m}" class="btn" title="Email">${icone.mail}</a>`;
+                if (p.wa && p.wa !== "#") s += `<a href="https://wa.me{p.wa}" target="_blank" class="btn" title="WhatsApp">${icone.wa}</a>`;
+                if (p.ig && p.ig !== "#") s += `<a href="${p.ig}" target="_blank" class="btn" title="Instagram">${icone.ig}</a>`;
+                if (p.fb && p.fb !== "#") s += `<a href="${p.fb}" target="_blank" class="btn" title="Facebook">${icone.fb}</a>`;
+                if (p.t && p.t !== "#")  s += `<a href="tel:${p.t}" class="btn" title="Telefono">${icone.tel}</a>`;
 
+                h += `<div class="card">
+                        <div class="cat-tag">${p.c}</div>
+                        <div class="nome">${p.n}</div>
+                        <p style="font-size:12px;color:#555;flex-grow:1;margin:5px 0">${p.b}</p>
+                        <div style="display:flex; gap:5px; flex-wrap:wrap;">${s}</div>
+                      </div>`;
+            }
+        });
+        g.innerHTML = h || '<p style="grid-column: span 2; text-align: center; padding: 20px;">Nessun risultato trovato.</p>';
+    }
+
+    function filter(c, el) {
+        catSel = c;
+        document.querySelectorAll('.voce').forEach(v => v.classList.remove('attiva'));
+        el.classList.add('attiva');
         render();
-    </script>
+    }
+
+    render();
+</script>
 </body>
 </html>
