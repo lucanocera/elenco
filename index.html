@@ -50,7 +50,7 @@
     <script>
         // --- QUI AGGIUNGI I TUOI DATI ---
         const dati = [
-            { n: "Tiziana Casazza", c: "PSICOLOGI", b: "Psicologa e psicoterapeuta esperta in Alta Sensibilità.", w: "#", m: "t@m.it", wa: "390", ig: "#", fb: "#", t: "390" },
+            { n: "Dott.ssa Tiziana Casazza", c: "PSICOLOGI", b: "Psicologa, psicoterapeuta, insegnante di pratica Bioenergetica", w: "https://www.tizianacasazzapsicologa.it/index.html", m: "#", wa: "#0", ig: "#", fb: "#", t: "#" },
             { n: "Mario Rossi", c: "PSICHIATRI", b: "Psichiatra specializzato in disturbi dell'umore.", w: "", m: "m@m.it", wa: "391", ig: "", fb: "", t: "" },
             { n: "Associazione ABC", c: "ASSOCIAZIONI", b: "Supporto e divulgazione nazionale.", w: "#", m: "", wa: "", ig: "", fb: "#", t: "" }
         ];
@@ -63,7 +63,7 @@
             let h = '';
             dati.forEach(p => {
                 if ((catSel === 'TUTTI' || p.c === catSel) && p.n.toLowerCase().includes(q)) {
-                    let s = (p.w ? `<a href="${p.w}" target="_blank" class="btn">WEB</a>` : '') +
+                    let s = (p.w ? `<a href="${p.web}" target="_blank" class="btn">WEB</a>` : '') +
                             (p.m ? `<a href="mailto:${p.m}" class="btn">MAIL</a>` : '') +
                             (p.wa ? `<a href="https://wa.me{p.wa}" target="_blank" class="btn">WA</a>` : '') +
                             (p.fb ? `<a href="${p.fb}" target="_blank" class="btn">FB</a>` : '');
