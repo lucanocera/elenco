@@ -19,13 +19,24 @@
             padding-bottom: 2px; margin-bottom: 10px; letter-spacing: 1px;
         }
 
+        /* PULSANTI (CERCHIETTI) */
         .btn {
             width: 34px; height: 34px; border-radius: 50%; background: #a0665d;
             color: #fff !important; display: inline-flex; align-items: center; justify-content: center;
             text-decoration: none !important; transition: 0.2s; margin-right: 6px;
         }
         .btn:hover { background: #7a4a42; transform: scale(1.1); }
-        .btn svg { width: 16px; height: 16px; fill: currentColor; } /* Colora l'icona di bianco */
+        
+        /* Stile specifico per il testo "Web" nel cerchietto */
+        .btn-testo {
+            font-size: 10px !important;
+            font-weight: bold;
+            letter-spacing: 0.2px;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        /* Stile icone SVG */
+        .btn svg { width: 18px; height: 18px; fill: currentColor; display: block; }
 
         .input { width: 100%; padding: 10px; border-radius: 8px; border: 1.5px solid #a0665d; outline: none; margin-bottom: 12px; box-sizing: border-box; }
         .menu { background: #fff; border: 1px solid #e3c8c4; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
@@ -78,13 +89,13 @@
         dati.forEach(p => {
             if ((catSel === 'TUTTI' || p.c === catSel) && p.n.toLowerCase().includes(q)) {
                 let s = '';
-                // Controllo se il campo esiste e non è solo un cancelletto
-                if (p.w && p.w !== "#")  s += `<a href="${p.w}" target="_blank" class="btn" title="Web">${icone.web}</a>`;
-                if (p.m && p.m !== "#")  s += `<a href="mailto:${p.m}" class="btn" title="Email">${icone.mail}</a>`;
-                if (p.wa && p.wa !== "#") s += `<a href="https://wa.me{p.wa}" target="_blank" class="btn" title="WhatsApp">${icone.wa}</a>`;
-                if (p.ig && p.ig !== "#") s += `<a href="${p.ig}" target="_blank" class="btn" title="Instagram">${icone.ig}</a>`;
-                if (p.fb && p.fb !== "#") s += `<a href="${p.fb}" target="_blank" class="btn" title="Facebook">${icone.fb}</a>`;
-                if (p.t && p.t !== "#")  s += `<a href="tel:${p.t}" class="btn" title="Telefono">${icone.tel}</a>`;
+// Il primo è testuale (WEB), gli altri sono icone SVG
+if (p.w && p.w !== "#")  s += `<a href="${p.w}" target="_blank" class="btn btn-testo" title="Sito Web">Web</a>`;
+if (p.m && p.m !== "#")  s += `<a href="mailto:${p.m}" class="btn" title="Email">${icone.mail}</a>`;
+if (p.wa && p.wa !== "#") s += `<a href="https://wa.me{p.wa}" target="_blank" class="btn" title="WhatsApp">${icone.wa}</a>`;
+if (p.ig && p.ig !== "#") s += `<a href="${p.ig}" target="_blank" class="btn" title="Instagram">${icone.ig}</a>`;
+if (p.fb && p.fb !== "#") s += `<a href="${p.fb}" target="_blank" class="btn" title="Facebook">${icone.fb}</a>`;
+if (p.t && p.t !== "#")  s += `<a href="tel:${p.t}" class="btn" title="Telefono">${icone.tel}</a>`;
 
                 h += `<div class="card">
                         <div class="cat-tag">${p.c}</div>
