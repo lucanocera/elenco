@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; padding: 10px; background: transparent; }
+        .flex { display: flex; gap: 20px; align-items: flex-start; }
+        .side { width: 180px; flex-shrink: 0; }
+        .grid { flex-grow: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .card { background: #fff; border: 1px solid #e3c8c4; border-radius: 10px; padding: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); display: flex; flex-direction: column; }
+        .nome { color: #a0665d; font-size: 16px; font-weight: bold; text-transform: uppercase; margin: 10px 0; }
+        .cat-tag { text-align: right; font-size: 9px; font-weight: 900; color: #a0665d; border-bottom: 2px solid #a0665d; padding-bottom: 2px; text-transform: uppercase; }
+        .btn { width: 30px; height: 30px; border-radius: 50%; background: #a0665d; color: #fff; display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 7px; font-weight: bold; margin-right: 5px; }
+        .input { width: 100%; padding: 8px; border-radius: 5px; border: 1px solid #a0665d; margin-bottom: 10px; box-sizing: border-box; }
+        .menu { background: #fff; border: 1px solid #e3c8c4; border-radius: 5px; overflow: hidden; }
+        .voce { padding: 10px; cursor: pointer; color: #a0665d; font-size: 12px; font-weight: bold; border-bottom: 1px solid #eee; }
+        .voce.attiva { background: #a0665d; color: #fff; }
+        @media (max-width: 700px) { .grid { grid-template-columns: 1fr; } .flex { flex-direction: column; } .side { width: 100%; } }
+    </style>
+</head>
+<body>
+    <div class="flex">
+        <div class="side">
+            <input type="text" id="cerca" onkeyup="render()" placeholder="Cerca..." class="input">
+            <div class="menu" id="menu">
+                <div class="voce attiva" onclick="filter('TUTTI', this)">TUTTI</div>
+                <div class="voce" onclick="filter('ASSOCIAZIONI', this)">ASSOCIAZIONI</div>
+                <div class="voce" onclick="filter('PSICHIATRI', this)">PSICHIATRI</div>
+                <div class="voce" onclick="filter('PSICOLOGI', this)">PSICOLOGI</div>
+                <div class="voce" onclick="filter('ALTRI PROFESSIONISTI', this)">ALTRI</div>
+            </div>
+        </div>
+        <div class="grid" id="grid"></div>
+    </div>
+
+    <script>
+        // --- QUI AGGIUNGI I TUOI DATI ---
+        const dati = [
+            { n: "Tiziana Casazza", c: "PSICOLOGI", b: "Psicologa e psicoterapeuta esperta in Alta Sensibilità.", w: "#", m: "t@m.it", wa: "390", ig: "#", fb: "#", t: "390" },
+            { n: "Mario Rossi", c: "PSICHIATRI", b: "Psichiatra specializzato in disturbi dell'umore.", w: "", m: "m@m.it", wa: "391", ig: "", fb: "", t: "" },
+            { n: "Associazione ABC", c: "ASSOCIAZIONI", b: "Supporto e divulgazione nazionale.", w: "#", m: "", wa: "", ig: "", fb: "#", t: "" }
+        ];
+
+        let catSel = 'TUTTI';
+
+        function render() {
+            const q = document.getElementById('cerca').value.toLowerCase();
+            const g = document.getElementById('grid');
+            let h = '';
+            dati.forEach(p => {
+                if ((catSel === 'TUTTI' || p.c === catSel) && p.n.toLowerCase().includes(q)) {
+                    let s = (p.w ? `<a href="${p.w}" target="_blank" class="btn">WEB</a>` : '') +
+                            (p.m ? `<a href="mailto:${p.m}" class="btn">MAIL</a>` : '') +
+                            (p.wa ? `<a href="https://wa.me{p.wa}" target="_blank" class="btn">WA</a>` : '') +
+                            (p.fb ? `<a href="${p.fb}" target="_blank" class="btn">FB</a>` : '');
+                    h += `<div class="card"><div class="cat-tag">${p.c}</div><div class="nome">${p.n}</div><p style="font-size:12px;color:#555;flex-grow:1;margin:5px 0">${p.b}</p><div style="display:flex">${s}</div></div>`;
+                }
+            });
+            g.innerHTML = h || 'Nessun risultato.';
+        }
+
+        function filter(c, el) {
+            catSel = c;
+            document.querySelectorAll('.voce').forEach(v => v.classList.remove('attiva'));
+            el.classList.add('attiva');
+            render();
+        }
+
+        render();
+    </script>
+</body>
+</html>
