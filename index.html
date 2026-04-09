@@ -60,7 +60,7 @@
 <script>
     // Inserisci i nomi esatti dei file che hai caricato su GitHub
     const dati = [
-        { n: "Dott.ssa Tiziana Casazza", c: "PSICOLOGI", b: "Psicologa, psicoterapeuta, insegnante di pratica Bioenergetica", w: "https://tizianacasazza.it", m: "mail@mail.it", wa: "39000", ig: "https://ig.com", fb: "https://fb.com", t: "39000" }
+        { n: "Dott.ssa Tiziana Casazza", c: "PSICOLOGI", b: "Psicologa, psicoterapeuta, insegnante di pratica Bioenergetica", w: "https://www.tizianacasazzapsicologa.it/index.html", m: "", wa: "", ig: "", fb: ", t: "" }
     ];
 
     let catSel = 'TUTTI';
@@ -74,11 +74,11 @@
             if ((catSel === 'TUTTI' || p.c === catSel) && p.n.toLowerCase().includes(q)) {
                 let s = '';
                 // Sostituisci i nomi dei file (es. web.png) con quelli reali caricati
-                if (p.w)  s += `<a href="${p.w}" target="_blank" class="btn"><img src="www.png"></a>`;
+                if (p.w)  s += `<a href="${p.w}" target="_blank" class="btn"><img src="www.jpg"></a>`;
                 if (p.m)  s += `<a href="mailto:${p.m}" class="btn"><img src="mail.png"></a>`;
-                if (p.wa) s += `<a href="https://wa.me{p.wa}" target="_blank" class="btn"><img src="whatsapp.png"></a>`;
-                if (p.ig) s += `<a href="${p.ig}" target="_blank" class="btn"><img src="instagram.png"></a>`;
-                if (p.fb) s += `<a href="${p.fb}" target="_blank" class="btn"><img src="facebook.png"></a>`;
+                if (p.wa) s += `<a href="https://wa.me{p.wa}" target="_blank" class="btn"><img src="whatsapp.jpg"></a>`;
+                if (p.ig) s += `<a href="${p.ig}" target="_blank" class="btn"><img src="instagram.webp"></a>`;
+                if (p.fb) s += `<a href="${p.fb}" target="_blank" class="btn"><img src="facebook.webp"></a>`;
                 if (p.t)  s += `<a href="tel:${p.t}" class="btn"><img src="phone.png"></a>`;
 
                 h += `<div class="card">
