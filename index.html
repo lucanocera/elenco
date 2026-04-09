@@ -19,24 +19,19 @@
             padding-bottom: 2px; margin-bottom: 10px; letter-spacing: 1px;
         }
 
-        /* PULSANTI (CERCHIETTI) */
+        /* PULSANTI CON LE TUE ICONE (SENZA SFONDO) */
         .btn {
-            width: 34px; height: 34px; border-radius: 50%; background: #a0665d;
-            color: #fff !important; display: inline-flex; align-items: center; justify-content: center;
-            text-decoration: none !important; transition: 0.2s; margin-right: 6px;
+            width: 32px; height: 32px; 
+            display: inline-flex; align-items: center; justify-content: center;
+            text-decoration: none !important; transition: 0.2s; margin-right: 8px;
+            background: transparent;
         }
-        .btn:hover { background: #7a4a42; transform: scale(1.1); }
+        .btn:hover { transform: scale(1.15); opacity: 0.8; }
         
-        /* Stile specifico per il testo "Web" nel cerchietto */
-        .btn-testo {
-            font-size: 10px !important;
-            font-weight: bold;
-            letter-spacing: 0.2px;
-            font-family: 'Segoe UI', sans-serif;
+        .btn img {
+            width: 100%; height: 100%;
+            object-fit: contain; display: block;
         }
-
-        /* Stile icone SVG */
-        .btn svg { width: 18px; height: 18px; fill: currentColor; display: block; }
 
         .input { width: 100%; padding: 10px; border-radius: 8px; border: 1.5px solid #a0665d; outline: none; margin-bottom: 12px; box-sizing: border-box; }
         .menu { background: #fff; border: 1px solid #e3c8c4; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
@@ -50,7 +45,7 @@
 
 <div class="flex">
     <div class="side">
-        <input type="text" id="cerca" onkeyup="render()" placeholder="Cerca..." class="input">
+        <input type="text" id="cerca" onkeyup="render()" placeholder="Cerca nome..." class="input">
         <div class="menu">
             <div class="voce attiva" onclick="filter('TUTTI', this)">TUTTI</div>
             <div class="voce" onclick="filter('ASSOCIAZIONI', this)">ASSOCIAZIONI</div>
@@ -63,20 +58,9 @@
 </div>
 
 <script>
-    // --- DISEGNI DELLE ICONE (SVG) ---
-    const icone = {
-        web: `<svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z""")/>></svg>`,
-        mail: `<svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z""")/>></svg>`,
-        wa: `<svg viewBox="0 0 24 24"><path d="M16.75 13.96c-.25-.13-1.5-.74-1.74-.82-.24-.09-.41-.13-.58.13-.17.26-.67.82-.82.99-.15.17-.31.2-.55.07-.24-.13-1.01-.37-1.93-1.19-.71-.64-1.2-1.42-1.34-1.66-.14-.24-.02-.37.11-.5.11-.11.25-.29.37-.43.12-.14.17-.23.25-.39.09-.16.04-.3-.02-.43-.06-.13-.58-1.39-.79-1.91-.21-.51-.42-.44-.58-.45H8.7c-.17 0-.44.06-.67.31-.23.25-.87.85-.87 2.07 0 1.21.89 2.39 1.01 2.56.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.47-.07 1.5-.61 1.71-1.21.21-.6.21-1.11.15-1.21-.06-.1-.23-.16-.48-.29zM12 2a10 10 0 0 0-8.65 15L2 22l5.2-1.35A10 10 0 1 0 12 2z""")/>></svg>`,
-        fb: `<svg viewBox="0 0 24 24"><path d="M12 2.04c-5.5 0-10 4.49-10 10.02 0 5 3.66 9.15 8.44 9.9v-7h-2.54v-2.9h2.54V9.85c0-2.51 1.49-3.89 3.78-3.89 1.09 0 2.23.19 2.23.19v2.47h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.45 2.9h-2.33v7a10 10 0 0 0 8.44-9.9c0-5.53-4.5-10.02-10-10.02z""")/>></svg>`,
-        ig: `<svg viewBox="0 0 24 24"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8A3.6 3.6 0 0 0 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6A3.6 3.6 0 0 0 16.4 4H7.6m9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8 1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3z""")/>></svg>`,
-        tel: `<svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-10.49 0-19-8.51-19-19 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z""")/>></svg>`
-    };
-
+    // Inserisci i nomi esatti dei file che hai caricato su GitHub
     const dati = [
-        { n: "Dott.ssa Tiziana Casazza", c: "PSICOLOGI", b: "Psicologa, psicoterapeuta, insegnante di pratica Bioenergetica", w: "https://tizianacasazzapsicologa.it", m: "tiziana@mail.it", wa: "393331234567", ig: "https://instagram.com", fb: "#", t: "393331234567" },
-        { n: "Mario Rossi", c: "PSICHIATRI", b: "Psichiatra specializzato in disturbi dell'umore.", w: "", m: "mario@mail.it", wa: "393331234567", ig: "", fb: "", t: "" },
-        { n: "Associazione ABC", c: "ASSOCIAZIONI", b: "Supporto e divulgazione nazionale.", w: "https://google.it", m: "", wa: "", ig: "", fb: "https://facebook.com", t: "" }
+        { n: "Dott.ssa Tiziana Casazza", c: "PSICOLOGI", b: "Psicologa, psicoterapeuta, insegnante di pratica Bioenergetica", w: "https://tizianacasazza.it", m: "mail@mail.it", wa: "39000", ig: "https://ig.com", fb: "https://fb.com", t: "39000" }
     ];
 
     let catSel = 'TUTTI';
@@ -89,13 +73,13 @@
         dati.forEach(p => {
             if ((catSel === 'TUTTI' || p.c === catSel) && p.n.toLowerCase().includes(q)) {
                 let s = '';
-// Il primo è testuale (WEB), gli altri sono icone SVG
-if (p.w && p.w !== "#")  s += `<a href="${p.w}" target="_blank" class="btn btn-testo" title="Sito Web">Web</a>`;
-if (p.m && p.m !== "#")  s += `<a href="mailto:${p.m}" class="btn" title="Email">${icone.mail}</a>`;
-if (p.wa && p.wa !== "#") s += `<a href="https://wa.me{p.wa}" target="_blank" class="btn" title="WhatsApp">${icone.wa}</a>`;
-if (p.ig && p.ig !== "#") s += `<a href="${p.ig}" target="_blank" class="btn" title="Instagram">${icone.ig}</a>`;
-if (p.fb && p.fb !== "#") s += `<a href="${p.fb}" target="_blank" class="btn" title="Facebook">${icone.fb}</a>`;
-if (p.t && p.t !== "#")  s += `<a href="tel:${p.t}" class="btn" title="Telefono">${icone.tel}</a>`;
+                // Sostituisci i nomi dei file (es. web.png) con quelli reali caricati
+                if (p.w)  s += `<a href="${p.w}" target="_blank" class="btn"><img src="www.png"></a>`;
+                if (p.m)  s += `<a href="mailto:${p.m}" class="btn"><img src="mail.png"></a>`;
+                if (p.wa) s += `<a href="https://wa.me{p.wa}" target="_blank" class="btn"><img src="whatsapp.png"></a>`;
+                if (p.ig) s += `<a href="${p.ig}" target="_blank" class="btn"><img src="instagram.png"></a>`;
+                if (p.fb) s += `<a href="${p.fb}" target="_blank" class="btn"><img src="facebook.png"></a>`;
+                if (p.t)  s += `<a href="tel:${p.t}" class="btn"><img src="phone.png"></a>`;
 
                 h += `<div class="card">
                         <div class="cat-tag">${p.c}</div>
