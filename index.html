@@ -12,14 +12,12 @@
         .card { background: #fff; border: 1px solid #e3c8c4; border-radius: 12px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); display: flex; flex-direction: column; }
         .nome { color: #a0665d; font-size: 18px; font-weight: bold; text-transform: uppercase; margin: 10px 0; }
         
-        /* RIGHINA CORTA FISSA */
         .cat-tag {
             color: #a0665d; font-size: 10px; font-weight: 900; text-transform: uppercase;
             border-bottom: 2px solid #a0665d; display: table; margin-left: auto;
             padding-bottom: 2px; margin-bottom: 10px; letter-spacing: 1px;
         }
 
-        /* PULSANTI CON LE TUE ICONE (SENZA SFONDO) */
         .btn {
             width: 32px; height: 32px; 
             display: inline-flex; align-items: center; justify-content: center;
@@ -58,9 +56,18 @@
 </div>
 
 <script>
-    // Inserisci i nomi esatti dei file che hai caricato su GitHub
     const dati = [
-        { n: "Dott.ssa Tiziana Casazza", c: "PSICOLOGI", b: "Psicologa, psicoterapeuta, insegnante di pratica Bioenergetica", w: "https://www.tizianacasazzapsicologa.it/index.html", m: "", wa: "", ig: "", fb: ", t: "" }
+        { 
+          n: "Dott.ssa Tiziana Casazza", 
+          c: "PSICOLOGI", 
+          b: "Psicologa, psicoterapeuta, insegnante di pratica Bioenergetica", 
+          w: "https://www.tizianacasazzapsicologa.it/index.html", 
+          m: "", 
+          wa: "", 
+          ig: "", 
+          fb: "", 
+          t: "" 
+        }
     ];
 
     let catSel = 'TUTTI';
@@ -73,7 +80,6 @@
         dati.forEach(p => {
             if ((catSel === 'TUTTI' || p.c === catSel) && p.n.toLowerCase().includes(q)) {
                 let s = '';
-                // Sostituisci i nomi dei file (es. web.png) con quelli reali caricati
                 if (p.w)  s += `<a href="${p.w}" target="_blank" class="btn"><img src="www.jpg"></a>`;
                 if (p.m)  s += `<a href="mailto:${p.m}" class="btn"><img src="mail.png"></a>`;
                 if (p.wa) s += `<a href="https://wa.me{p.wa}" target="_blank" class="btn"><img src="whatsapp.jpg"></a>`;
