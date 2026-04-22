@@ -67,7 +67,7 @@
     {n: "Dott.ssa Tiziana Casazza", c: "PSICOLOGI", b: "Psicologa, psicoterapeuta, insegnante di Pratica Bioenergetica", l: "Milano", w: "https://www.tizianacasazzapsicologa.it/index.html", m: "", wa: "", ig: "", fb: "", t: ""},
     {n: "Dott.ssa Nicoletta Travaini", c: "PSICOLOGI", b: "Psicologa, psicoterapeuta, insegnante di Psicosomatica", l: "Milano", w: "https://ipersensibili.com/", m: "", wa: "", ig: "", fb: "", t: ""},
     {n: "Dott.ssa Elena Rago", c: "PSICOLOGI", b: "Psicologa, psicoterapeuta", l: "Online", w: "https://www.paspeople.com/", m: "", wa: "", ig: "", fb: "", t: ""},
-    {n: "Francesca Santamaria Palombo", c: "PSICOLOGI", b: "Psicoterapeuta per Donne Altamente Sensibili", l: "Online", w: "https://www.mindfulnessperhsp.it/", m: "", wa: "", ig: "https://www.instagram.com/psicobenesserealfemminile/", fb: "", t: ""},
+    {n: "Francesca Santamaria Palombo", c: "PSICOLOGI", b: "Psicoterapeuta per Donne Altamente Sensibili", l: "Online", w: "", m: "", wa: "", ig: "https://www.instagram.com/psicobenesserealfemminile/", fb: "", t: ""},
     {n: "Dott.ssa Eva-Lena Fehlmann", c: "ALTRI PROFESSIONISTI", b: "Consulente certificata in Mindfulness per l'Alta Sensibilità", l: "Svizzera", w: "https://www.studiopolarityhsp.ch/", m: "", wa: "", ig: "", fb: "", t: ""},
     {n: "Dott.ssa Anna Maria Le Moli", c: "ALTRI PROFESSIONISTI", b: "Counselor Relazionale Advanced, Sociologa, Life Coach", l: "Roma", w: "https://www.counseloraroma.it/", m: "", wa: "", ig: "", fb: "", t: ""},
     {n: "Dottoressa Sara Gisondi", c: "ALTRI PROFESSIONISTI", b: "Consulente certificata in Mindfulness per l'Alta Sensibilità", l: "Online", w: "https://www.mindfulnessperhsp.it/", m: "", wa: "", ig: "", fb: "", t: ""},
@@ -90,8 +90,24 @@ let catSel = 'TUTTI';
 
         if (matchNome && matchCat && matchLuogo) {
             let s = '';
-            if (p.w)  s += `<a href="${p.w}" target="_blank" class="btn"><img src="www.jpg"></a>`;
-            // ... (resto dei tuoi pulsanti social) ...
+            
+            // 1. SITO WEB (www.jpg)
+            if (p.w)  s += `<a href="${p.w}" target="_blank" class="btn"><img src="www.jpg" alt="Web"></a>`;
+
+            // 2. MAIL (m -> mail.png)
+            if (p.m)  s += `<a href="mailto:${p.m}" class="btn"><img src="mail.png" alt="Email"></a>`;
+
+            // 3. WHATSAPP (wa -> whatsapp.jpg)
+            if (p.wa) s += `<a href="https://wa.me/${p.wa.replace(/\s+/g, '')}" target="_blank" class="btn"><img src="whatsapp.jpg" alt="WhatsApp"></a>`;
+
+            // 4. INSTAGRAM (ig -> instagram.webp)
+            if (p.ig) s += `<a href="${p.ig}" target="_blank" class="btn"><img src="instagram.webp" alt="Instagram"></a>`;
+
+            // 5. FACEBOOK (fb -> facebook.webp)
+            if (p.fb) s += `<a href="${p.fb}" target="_blank" class="btn"><img src="facebook.webp" alt="Facebook"></a>`;
+
+            // 6. TELEFONO (t -> phone.png)
+            if (p.t)  s += `<a href="tel:${p.t.replace(/\s+/g, '')}" class="btn"><img src="phone.png" alt="Telefono"></a>`;
 
             h += `<div class="card">
                     <div class="cat-tag">${p.c}</div>
